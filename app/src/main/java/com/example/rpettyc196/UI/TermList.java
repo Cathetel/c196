@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,40 +14,46 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rpettyc196.Database.Repository;
 import com.example.rpettyc196.Entity.Term;
 import com.example.rpettyc196.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class TermList extends AppCompatActivity {
+    private Repository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        RecyclerView recyclerView=findViewById(R.id.termListView);
-        Repository repo=new Repository(getApplication());
-        List<Term> terms=repo.getAllTerms();
-        final TermAdapter adapter=new TermAdapter(this);
-        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.termRecyclerview);
+        final TermAdapter termAdapter = new TermAdapter(this);
+        recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setTerms(terms);
+        repository = new Repository(getApplication());
+        List<Term> allProducts = repository.getAllTerms();
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        termAdapter.setTerms(allProducts);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TermList.this, TermDetail.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_termlist, menu);
-        return true;
-    }
+    @Override
+    protected void onResume() {
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+        super.onResume();
+        List<Term> allTerms = repository.getAllTerms();
+        RecyclerView recyclerView = findViewById(R.id.termRecyclerview);
+        final TermAdapter termAdapter = new TermAdapter(this);
+        recyclerView.setAdapter(termAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        termAdapter.setTerms(allTerms);
 
-    public void goToTermDetail(View view) {
-        Intent intent = new Intent(TermList.this, TermDetail.class);
-        startActivity(intent);
+        Toast.makeText(TermList.this,"refresh list",Toast.LENGTH_LONG).show();
     }
 }

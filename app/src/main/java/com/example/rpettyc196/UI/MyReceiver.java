@@ -1,4 +1,4 @@
-package com.example.rpettyc196.UI;
+/*package com.example.rpettyc196.UI;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -34,4 +34,4 @@ public class MyReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
-}
+}*/

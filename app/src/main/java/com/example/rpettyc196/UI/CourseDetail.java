@@ -92,11 +92,11 @@ public class CourseDetail extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Long trigger=myDate.getTime();
-                Intent intent=new Intent(CourseDetail.this, MyReceiver.class);
-                intent.putExtra("key","messageIwantToSend");
-                PendingIntent sender=PendingIntent.getBroadcast(CourseDetail.this, MainActivity.numAlert++, intent,0);
-                AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
+                //Intent intent=new Intent(CourseDetail.this, MyReceiver.class);
+                //intent.putExtra("key","messageIwantToSend");
+                //PendingIntent sender=PendingIntent.getBroadcast(CourseDetail.this, MainActivity.numAlert++, intent,0);
+                //AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+               // alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,3 +1,4 @@
+/*
 package com.example.rpettyc196.UI;
 
 import android.content.Context;
@@ -71,3 +72,4 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         else {return 0;}
     }
 }
+*/
