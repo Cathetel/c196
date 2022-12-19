@@ -37,12 +37,12 @@ public class TermDetail extends AppCompatActivity {
         setContentView(R.layout.activity_term_detail);
 
         editName = findViewById(R.id.termName);
-        //editId = findViewById(R.id.termID);
         //name = editName.getText().toString();
         //termId = Integer.getInteger(editId.toString());
         name = getIntent().getStringExtra("termName");
         termId = getIntent().getIntExtra("termID", -1);
         editName.setText(name);
+
         //editId.setText(Integer.toString(termId));
 
         repository = new Repository(getApplication());
@@ -68,7 +68,7 @@ public class TermDetail extends AppCompatActivity {
                 //termId = Integer.parseInt(id);
 
                 if (termId == -1) {
-                    term = new Term(0, name, "01/01/22", "12/31/22");
+                    term = new Term(termId, name, "01/01/22", "12/31/22");
                     repository.insert(term);
                     Intent intent = new Intent(TermDetail.this, TermList.class);
                     startActivity(intent);
