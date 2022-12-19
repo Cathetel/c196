@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,45 +36,54 @@ public class TermDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_detail);
 
-        editName = findViewById(R.id.termName);
-        editId = findViewById(R.id.termID);
+        //editName = findViewById(R.id.termName);
+        //editId = findViewById(R.id.termID);
+        //name = editName.getText().toString();
+        //termId = Integer.getInteger(editId.toString());
         name = getIntent().getStringExtra("termName");
         termId = getIntent().getIntExtra("termID", -1);
-        editName.setText(name);
-        editId.setText(Integer.toString(termId));
+        //editName.setText(name);
+        //editId.setText(Integer.toString(termId));
+
         repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.termRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
         repository = new Repository(getApplication());
-        final TermAdapter partAdapter = new TermAdapter(this);
-        recyclerView.setAdapter(partAdapter);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Term> filteredTerms = new ArrayList<>();
-        for (Term t : repository.getAllTerms()) {
-            if (t.getTermID() == termId) filteredTerms.add(t);
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course c : repository.getAllCourses()) {
+            if (c.getTermID() == termId) filteredCourses.add(c);
         }
-        partAdapter.setTerms(filteredTerms);
+        courseAdapter.setCourse(filteredCourses);
 
         Button button = findViewById(R.id.saveTerm);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editName = findViewById(R.id.termName);
+               // editId = findViewById(R.id.termID);
+                name = editName.getText().toString();
+                //String id = editId.getText().toString();
+               // termId = Integer.parseInt(id);
+
                 if (termId == -1) {
-                    term = new Term(0, editName.toString(), "01/01/22", "12/31/22");
+                    term = new Term(0, name, "01/01/22", "12/31/22");
                     repository.insert(term);
 
                 } else {
-                    term = new Term(0, editName.toString(), "01/01/22", "12/31/22");
-                    repository.insert(term);
+                    term = new Term(termId, name, "01/01/22", "12/31/22");
+                    repository.update(term);
 
                 }
             }
         });
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton2);
+        FloatingActionButton fab = findViewById(R.id.termActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TermDetail.this, CourseList.class);
-                intent.putExtra("prodID", termId);
+                intent.putExtra("termID", termId);
                 startActivity(intent);
             }
         });
@@ -87,7 +94,7 @@ public class TermDetail extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
-        RecyclerView recyclerView = findViewById(R.id.termRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

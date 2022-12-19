@@ -6,47 +6,52 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.rpettyc196.Database.Repository;
 import com.example.rpettyc196.Entity.Course;
 import com.example.rpettyc196.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class CourseList extends AppCompatActivity {
+    private Repository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        RecyclerView recyclerView = findViewById(R.id.courseListView);
-        Repository repo = new Repository(getApplication());
-        List<Course> courses = repo.getAllCourses();
-        final CourseAdapter adapter = new CourseAdapter(this);
-        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setCourse(courses);
+        repository = new Repository(getApplication());
+        List<Course> allCourses = repository.getAllCourses();
+        FloatingActionButton fab = findViewById(R.id.courseActionButton);
+        courseAdapter.setCourse(allCourses);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CourseList.this, CourseDetail.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_coursedetail, menu);
-        return true;
-    }
+    @Override
+    protected void onResume() {
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+        super.onResume();
+        List<Course> allCourses = repository.getAllCourses();
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        courseAdapter.setCourse(allCourses);
 
-    public void goToCourseDetail(View view) {
-        Intent intent = new Intent(CourseList.this, CourseDetail.class);
-        startActivity(intent);
+        Toast.makeText(CourseList.this,"refresh list",Toast.LENGTH_LONG).show();
     }
 }

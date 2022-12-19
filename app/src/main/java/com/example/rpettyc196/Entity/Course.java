@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 public class Course {
     @PrimaryKey(autoGenerate = true)
 
+    private int termID;
     private int courseID;
     private String courseName;
     private String start;
@@ -17,7 +18,8 @@ public class Course {
     private String email;
     private String note;
 
-    public Course(int courseID, String courseName, String start, String end, String status, String ciName, String ciPhone, String email, String note) {
+    public Course(int termID, int courseID, String courseName, String start, String end, String status, String ciName, String ciPhone, String email, String note) {
+        this.termID = termID;
         this.courseID = courseID;
         this.courseName = courseName;
         this.start = start;
@@ -27,6 +29,14 @@ public class Course {
         this.ciPhone = ciPhone;
         this.email = email;
         this.note = note;
+    }
+
+    public int getTermID() {
+        return termID;
+    }
+
+    public void setTermID(int termID) {
+        this.termID = termID;
     }
 
     public int getCourseID() {
@@ -104,6 +114,7 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
+                "termID=" + termID +
                 "courseID=" + courseID +
                 ", courseName='" + courseName + '\'' +
                 ", start='" + start + '\'' +
