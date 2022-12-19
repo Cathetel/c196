@@ -36,13 +36,13 @@ public class TermDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_detail);
 
-        //editName = findViewById(R.id.termName);
+        editName = findViewById(R.id.termName);
         //editId = findViewById(R.id.termID);
         //name = editName.getText().toString();
         //termId = Integer.getInteger(editId.toString());
         name = getIntent().getStringExtra("termName");
         termId = getIntent().getIntExtra("termID", -1);
-        //editName.setText(name);
+        editName.setText(name);
         //editId.setText(Integer.toString(termId));
 
         repository = new Repository(getApplication());
@@ -62,19 +62,22 @@ public class TermDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editName = findViewById(R.id.termName);
-               // editId = findViewById(R.id.termID);
+                //editId = findViewById(R.id.termID);
                 name = editName.getText().toString();
                 //String id = editId.getText().toString();
-               // termId = Integer.parseInt(id);
+                //termId = Integer.parseInt(id);
 
                 if (termId == -1) {
                     term = new Term(0, name, "01/01/22", "12/31/22");
                     repository.insert(term);
+                    Intent intent = new Intent(TermDetail.this, TermList.class);
+                    startActivity(intent);
 
                 } else {
                     term = new Term(termId, name, "01/01/22", "12/31/22");
                     repository.update(term);
-
+                    Intent intent = new Intent(TermDetail.this, TermList.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -104,6 +107,6 @@ public class TermDetail extends AppCompatActivity {
         }
         courseAdapter.setCourse(filteredCourses);
 
-        Toast.makeText(TermDetail.this, "refresh list", Toast.LENGTH_LONG).show();
+        //Toast.makeText(TermDetail.this, "refresh list", Toast.LENGTH_LONG).show();
     }
 }
