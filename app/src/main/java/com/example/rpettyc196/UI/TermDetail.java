@@ -49,12 +49,13 @@ public class TermDetail extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
         repository = new Repository(getApplication());
         final CourseAdapter courseAdapter = new CourseAdapter(this);
-        recyclerView.setAdapter(courseAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Course> filteredCourses = new ArrayList<>();
         for (Course c : repository.getAllCourses()) {
             if (c.getTermID() == termId) filteredCourses.add(c);
         }
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(courseAdapter);
         courseAdapter.setCourse(filteredCourses);
 
         Button button = findViewById(R.id.saveTerm);
