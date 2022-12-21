@@ -42,8 +42,7 @@ public class TermDetail extends AppCompatActivity {
         name = getIntent().getStringExtra("termName");
         termId = getIntent().getIntExtra("termID", -1);
         editName.setText(name);
-
-        //editId.setText(Integer.toString(termId));
+        editId.setText(termId);
 
         repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
