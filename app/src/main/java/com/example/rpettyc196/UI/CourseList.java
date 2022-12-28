@@ -18,13 +18,14 @@ import java.util.List;
 
 public class CourseList extends AppCompatActivity {
     private Repository repository;
+    int courseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        courseId = getIntent().getIntExtra("courseID", -1);
         setContentView(R.layout.activity_course_list);
-
-        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView2);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -37,6 +38,7 @@ public class CourseList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CourseList.this, CourseDetail.class);
+                intent.putExtra("courseID", courseId);
                 startActivity(intent);
             }
         });
@@ -47,7 +49,7 @@ public class CourseList extends AppCompatActivity {
 
         super.onResume();
         List<Course> allCourses = repository.getAllCourses();
-        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView2);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -23,7 +23,7 @@ import java.util.List;
 public class TermDetail extends AppCompatActivity {
 
     EditText editName;
-//    EditText editId;
+    int courseId;
     String name;
     int termId;
     Term term;
@@ -40,20 +40,29 @@ public class TermDetail extends AppCompatActivity {
         name = getIntent().getStringExtra("termName");
         termId = getIntent().getIntExtra("termID", -1);
         editName.setText(name);
-//        editId.setText(termId);
 
-        repository = new Repository(getApplication());
+        courseId = getIntent().getIntExtra("courseID", -1);
         RecyclerView recyclerView = findViewById(R.id.courseRecyclerView1);
-        repository = new Repository(getApplication());
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Course> filteredCourses = new ArrayList<>();
-        for (Course c : repository.getAllCourses()) {
-            if (c.getTermID() == termId) filteredCourses.add(c);
-        }
+        repository = new Repository(getApplication());
+        List<Course> allCourses = repository.getAllCourses();
+        courseAdapter.setCourse(allCourses);
 
-        courseAdapter.setCourse(filteredCourses);
+
+//        repository = new Repository(getApplication());
+//        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView1);
+//        repository = new Repository(getApplication());
+//        final CourseAdapter courseAdapter = new CourseAdapter(this);
+//        recyclerView.setAdapter(courseAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        List<Course> filteredCourses = new ArrayList<>();
+//        for (Course c : repository.getAllCourses()) {
+//            if (c.getTermID() == termId) filteredCourses.add(c);
+//        }
+//
+//        courseAdapter.setCourse(filteredCourses);
 
         Button button = findViewById(R.id.saveTerm);
         button.setOnClickListener(new View.OnClickListener() {

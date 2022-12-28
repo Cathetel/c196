@@ -20,10 +20,11 @@ import java.util.List;
 
 public class TermList extends AppCompatActivity {
     private Repository repository;
-
+    int termId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        termId = getIntent().getIntExtra("termID", -1);
         setContentView(R.layout.activity_term_list);
         RecyclerView recyclerView = findViewById(R.id.termRecyclerView);
         final TermAdapter termAdapter = new TermAdapter(this);
@@ -38,6 +39,7 @@ public class TermList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TermList.this, TermDetail.class);
+                intent.putExtra("termID", termId);
                 startActivity(intent);
             }
         });
