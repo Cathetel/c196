@@ -8,17 +8,23 @@ import java.time.LocalDateTime;
 @Entity(tableName = "assessments")
 public class Assessment {
     @PrimaryKey(autoGenerate = true)
+    private int courseID;
     private int assessmentID;
     private String assessmentName;
     private String start;
     private String end;
 
-    public Assessment(int assessmentID, String assessmentName, String start, String end) {
+    public Assessment(int courseID, int assessmentID, String assessmentName, String start, String end) {
+        this.courseID = courseID;
         this.assessmentID = assessmentID;
         this.assessmentName = assessmentName;
         this.start = start;
         this.end = end;
     }
+
+    public int getCourseID(){return courseID;}
+
+    public void setCourseID(int courseID){this.courseID = courseID;}
 
     public int getAssessmentID() {
         return assessmentID;

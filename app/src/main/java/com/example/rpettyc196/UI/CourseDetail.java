@@ -1,104 +1,113 @@
 package com.example.rpettyc196.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.AlarmManager;
-import android.app.DatePickerDialog;
-import android.app.PendingIntent;
-import android.content.Context;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.rpettyc196.Database.Repository;
+import com.example.rpettyc196.Entity.Assessment;
+import com.example.rpettyc196.Entity.Course;
+import com.example.rpettyc196.Entity.Term;
 import com.example.rpettyc196.R;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseDetail extends AppCompatActivity {
 
-    EditText editDate;
-    DatePickerDialog.OnDateSetListener startDate;
-    final Calendar myCalendarStart = Calendar.getInstance();
-    String myFormat;
-    SimpleDateFormat sdf;
+    EditText editName;
+    int courseId;
+    String name;
+    int termId;
+    Term term;
+    Term currentTerm;
+    int numTerms;
+    Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
-        //editDate=findViewById(R.id.editDate);
-        myFormat = "MM/dd/yy";
-        sdf = new SimpleDateFormat(myFormat, Locale.US);
-        editDate.setOnClickListener(new View.OnClickListener(){
+
+        editName = findViewById(R.id.courseName);
+        name = getIntent().getStringExtra("courseName");
+        termId = getIntent().getIntExtra("termID", -1);
+        courseId = getIntent().getIntExtra("courseID", -1);
+        editName.setText(name);
+
+        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        repository = new Repository(getApplication());
+        List<Assessment> allAssessements = repository.getAllAssessments();
+        assessmentAdapter.setCourse(allAssessements);
+
+
+//        repository = new Repository(getApplication());
+//        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView1);
+//        repository = new Repository(getApplication());
+//        final CourseAdapter courseAdapter = new CourseAdapter(this);
+//        recyclerView.setAdapter(courseAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        List<Course> filteredCourses = new ArrayList<>();
+//        for (Course c : repository.getAllCourses()) {
+//            if (c.getTermID() == termId) filteredCourses.add(c);
+//        }
+//
+//        courseAdapter.setCourse(filteredCourses);
+
+        Button button = findViewById(R.id.saveCourse);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date date;
-                String info=editDate.getText().toString();
-                if(info.equals(""))info="02/10/22";
-                try {
-                    myCalendarStart.setTime(sdf.parse(info));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                editName = findViewById(R.id.termName);
+                name = editName.getText().toString();
+
+                if (termId == -1) {
+                  // TODO set toast: "NEED TERM TO ASSOCIATE"
                 }
-                new DatePickerDialog(CourseDetail.this, startDate, myCalendarStart
-                        .get(Calendar.YEAR), myCalendarStart.get(Calendar.MONTH),
-                        myCalendarStart.get(Calendar.DAY_OF_MONTH)).show();
+                else {
+                    term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
+                    repository.update(term);
+                    Intent intent = new Intent(TermDetail.this, TermList.class);
+                    intent.putExtra("termID", termId);
+                    startActivity(intent);
+                }
             }
         });
-        startDate=new DatePickerDialog.OnDateSetListener(){
+        FloatingActionButton fab = findViewById(R.id.termActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                myCalendarStart.set(Calendar.YEAR,year);
-                myCalendarStart.set(Calendar.MONTH,monthOfYear);
-                myCalendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabelStart();
+            public void onClick(View view) {
+                Intent intent = new Intent(TermDetail.this, CourseDetail.class);
+                intent.putExtra("termID", termId);
+                startActivity(intent);
             }
-        };
+        });
+
     }
 
-    private  void updateLabelStart(){
-        editDate.setText(sdf.format(myCalendarStart.getTime()));
-    }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_coursedetail, menu);
-        return true;
-    }
+    @Override
+    protected void onResume() {
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-            case R.id.share:
-                Intent sendIntent= new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "text from the note field");
-                sendIntent.putExtra(Intent.EXTRA_TITLE, "Message Title");
-                sendIntent.setType("text/plain");
-                Intent shareIntent=Intent.createChooser(sendIntent,null);
-                startActivity(shareIntent);
-                return true;
-            case R.id.notify:
-                String dateFromScreen=editDate.getText().toString();
-                Date myDate=null;
-                try{
-                    myDate=sdf.parse(dateFromScreen);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Long trigger=myDate.getTime();
-                //Intent intent=new Intent(CourseDetail.this, MyReceiver.class);
-                //intent.putExtra("key","messageIwantToSend");
-                //PendingIntent sender=PendingIntent.getBroadcast(CourseDetail.this, MainActivity.numAlert++, intent,0);
-                //AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
-               // alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
-                return true;
+        super.onResume();
+        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course c : repository.getAllCourses()) {
+            if (c.getCourseID() == termId) filteredCourses.add(c);
         }
-        return super.onOptionsItemSelected(item);
+        courseAdapter.setCourse(filteredCourses);
     }
 }
