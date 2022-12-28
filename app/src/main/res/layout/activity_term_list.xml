@@ -7,7 +7,7 @@
     tools:context=".UI.TermList">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/termRecyclerview"
+        android:id="@+id/termRecyclerView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"

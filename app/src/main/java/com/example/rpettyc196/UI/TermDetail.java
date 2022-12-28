@@ -23,7 +23,7 @@ import java.util.List;
 public class TermDetail extends AppCompatActivity {
 
     EditText editName;
-    EditText editId;
+//    EditText editId;
     String name;
     int termId;
     Term term;
@@ -37,24 +37,22 @@ public class TermDetail extends AppCompatActivity {
         setContentView(R.layout.activity_term_detail);
 
         editName = findViewById(R.id.termName);
-        //name = editName.getText().toString();
-        //termId = Integer.getInteger(editId.toString());
         name = getIntent().getStringExtra("termName");
         termId = getIntent().getIntExtra("termID", -1);
         editName.setText(name);
-        editId.setText(termId);
+//        editId.setText(termId);
 
         repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView1);
         repository = new Repository(getApplication());
         final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Course> filteredCourses = new ArrayList<>();
         for (Course c : repository.getAllCourses()) {
             if (c.getTermID() == termId) filteredCourses.add(c);
         }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(courseAdapter);
         courseAdapter.setCourse(filteredCourses);
 
         Button button = findViewById(R.id.saveTerm);
@@ -62,21 +60,20 @@ public class TermDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editName = findViewById(R.id.termName);
-                //editId = findViewById(R.id.termID);
                 name = editName.getText().toString();
-                //String id = editId.getText().toString();
-                //termId = Integer.parseInt(id);
 
                 if (termId == -1) {
-                    term = new Term(termId, name, "01/01/22", "12/31/22");
+                    term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
                     repository.insert(term);
                     Intent intent = new Intent(TermDetail.this, TermList.class);
+                    intent.putExtra("termID", termId);
                     startActivity(intent);
-
-                } else {
-                    term = new Term(termId, name, "01/01/22", "12/31/22");
+                }
+                else {
+                    term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
                     repository.update(term);
                     Intent intent = new Intent(TermDetail.this, TermList.class);
+                    intent.putExtra("termID", termId);
                     startActivity(intent);
                 }
             }
@@ -85,7 +82,7 @@ public class TermDetail extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TermDetail.this, CourseList.class);
+                Intent intent = new Intent(TermDetail.this, CourseDetail.class);
                 intent.putExtra("termID", termId);
                 startActivity(intent);
             }
@@ -97,7 +94,7 @@ public class TermDetail extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
-        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView1);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -106,7 +103,5 @@ public class TermDetail extends AppCompatActivity {
             if (c.getCourseID() == termId) filteredCourses.add(c);
         }
         courseAdapter.setCourse(filteredCourses);
-
-        //Toast.makeText(TermDetail.this, "refresh list", Toast.LENGTH_LONG).show();
     }
 }

@@ -32,8 +32,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     Intent intent = new Intent(context, TermDetail.class);
                     intent.putExtra("termID", current.getTermID());
                     intent.putExtra("termName", current.getTermName());
-                    intent.putExtra("startDate", current.getStart());
-                    intent.putExtra("endDate", current.getEnd());
+                    intent.putExtra("start", current.getStart());
+                    intent.putExtra("end", current.getEnd());
                     context.startActivity(intent);
 
                 }
@@ -54,7 +54,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     @Override
     public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.term_list_item, parent, false);
-        return new TermViewHolder(itemView);
+        return new TermViewHolder((itemView));
     }
 
     @Override
