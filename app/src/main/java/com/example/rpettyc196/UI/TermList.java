@@ -30,9 +30,9 @@ public class TermList extends AppCompatActivity {
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         repository = new Repository(getApplication());
-        List<Term> allProducts = repository.getAllTerms();
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
-        termAdapter.setTerms(allProducts);
+        List<Term> allTerms = repository.getAllTerms();
+        FloatingActionButton fab = findViewById(R.id.termListFab);
+        termAdapter.setTerms(allTerms);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

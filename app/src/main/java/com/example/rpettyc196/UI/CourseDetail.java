@@ -1,3 +1,4 @@
+
 package com.example.rpettyc196.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import java.util.Locale;
 
 public class CourseDetail extends AppCompatActivity {
 
+
     EditText editDate;
     DatePickerDialog.OnDateSetListener startDate;
     final Calendar myCalendarStart = Calendar.getInstance();
@@ -31,7 +33,7 @@ public class CourseDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
-        editDate=findViewById(R.id.editDate);
+        //editDate=findViewById(R.id.editDate);
         myFormat = "MM/dd/yy";
         sdf = new SimpleDateFormat(myFormat, Locale.US);
         editDate.setOnClickListener(new View.OnClickListener(){
@@ -102,3 +104,4 @@ public class CourseDetail extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
