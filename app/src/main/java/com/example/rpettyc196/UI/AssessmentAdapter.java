@@ -23,7 +23,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     final Assessment current = mAssessment.get(position);
-                    Intent intent = new Intent(context, AssessmentList.class);
+                    Intent intent = new Intent(context, AssessmentDetail.class);
                     intent.putExtra("id", current.getAssessmentID());
                     intent.putExtra("name", current.getAssessmentName());
                     context.startActivity(intent);
@@ -43,7 +43,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @NonNull
     @Override
     public AssessmentAdapter.AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.course_list_item,parent,false);
+        View itemView = mInflater.inflate(R.layout.assessment_list_item,parent,false);
         return new AssessmentViewHolder(itemView);
     }
 
