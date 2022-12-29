@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Repository repo = new Repository(getApplication());
         Term term = new Term(1, "TEST1", null, null);
         repo.insert(term);
-        Assessment assesment1=new Assessment(2,"Asses2", null, null);
+        Assessment assesment1=new Assessment(1,"Roys Test", null, null);
         repo.insert(assesment1);
         Course class1=new Course(1,3,"course1", null, null,"In Progress","Carolyn Sher-DeCusatis","555-555-5555","carolyn@wgu.edu","test note");
         repo.insert(class1);

@@ -1,4 +1,3 @@
-/*
 package com.example.rpettyc196.UI;
 
 import android.content.Context;
@@ -18,7 +17,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final TextView assessmentItemView;
         private AssessmentViewHolder(View itemView){
             super(itemView);
-            assessmentItemView = itemView.findViewById(R.id.textView);
+            assessmentItemView = itemView.findViewById(R.id.textAssessment);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -59,7 +58,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             holder.assessmentItemView.setText("No Term Name");
         }
     }
-    public void setCourse(List<Assessment> assessment){
+    public void setAssessment(List<Assessment> assessment){
         mAssessment = assessment;
         notifyDataSetChanged();
     }
@@ -72,4 +71,3 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         else {return 0;}
     }
 }
-*/
