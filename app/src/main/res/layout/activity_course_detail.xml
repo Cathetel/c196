@@ -9,26 +9,17 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="410dp"
+        android:layout_height="405dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Term Name: " />
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,10 +31,130 @@
                     android:text="Term Name: " />
 
                 <EditText
-                    android:id="@+id/courseName"
+                    android:id="@+id/termName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Term 1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course ID: " />
+
+                <EditText
+                    android:id="@+id/courseID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Course 1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course Name: " />
+
+                <EditText
+                    android:id="@+id/courseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Course 1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: " />
+
+                <EditText
+                    android:id="@+id/courseStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Course 1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course Instructor: " />
+
+                <EditText
+                    android:id="@+id/courseInstructor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Course 1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instructor Phone: " />
+
+                <EditText
+                    android:id="@+id/coursePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="111-111-1111" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instructor Email: " />
+
+                <EditText
+                    android:id="@+id/courseEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Course 1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Note: " />
+
+                <EditText
+                    android:id="@+id/courseNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Course 1" />
             </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -52,15 +163,14 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/saveCourse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/saveCourse"
                     android:text="Save" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </LinearLayout>
 
     </ScrollView>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/termActionButton"
@@ -72,11 +182,9 @@
         app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@id/scrollView"
-        app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/assessmentRecyclerview"
         android:layout_width="409dp"
-        android:layout_height="373dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="301dp" />
+        android:layout_height="249dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

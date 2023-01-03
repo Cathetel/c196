@@ -23,10 +23,21 @@ import java.util.List;
 
 public class CourseDetail extends AppCompatActivity {
 
-    EditText editName;
+
+    int termId;
     int courseId;
     String name;
-    int termId;
+    String status;
+    String ciName;
+    String ciPhone;
+    String email;
+    String note;
+    EditText editName;
+    EditText editStatus;
+    EditText editCiName;
+    EditText editCiPhone;
+    EditText editEmail;
+    EditText editNote;
     Term term;
     Term currentTerm;
     int numTerms;
@@ -37,11 +48,27 @@ public class CourseDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
 
-        editName = findViewById(R.id.courseName);
-        name = getIntent().getStringExtra("courseName");
         termId = getIntent().getIntExtra("termID", -1);
         courseId = getIntent().getIntExtra("courseID", -1);
+        name = getIntent().getStringExtra("courseName");
+        status = getIntent().getStringExtra("status");
+        ciName = getIntent().getStringExtra("ciName");
+        ciPhone = getIntent().getStringExtra("ciPhone");
+        email = getIntent().getStringExtra("email");
+        note = getIntent().getStringExtra("note");
+
+        editName = findViewById(R.id.courseName);
         editName.setText(name);
+        editStatus=findViewById(R.id.courseStatus);
+        editStatus.setText(status);
+        editCiName=findViewById(R.id.courseInstructor);
+        editCiName.setText(ciName);
+        editCiPhone=findViewById(R.id.coursePhone);
+        editCiPhone.setText(ciPhone);
+        editEmail=findViewById(R.id.courseEmail);
+        editEmail.setText(email);
+        editNote=findViewById(R.id.courseNote);
+        editNote.setText(note);
 
         RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
@@ -73,9 +100,8 @@ public class CourseDetail extends AppCompatActivity {
                 name = editName.getText().toString();
 
                 if (termId == -1) {
-                  // TODO set toast: "NEED TERM TO ASSOCIATE"
-                }
-                else {
+                    // TODO set toast: "NEED TERM TO ASSOCIATE"
+                } else {
                     term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
                     repository.update(term);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
