@@ -28,10 +28,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Term Name: " />
+                    android:text="Term ID: " />
 
                 <EditText
-                    android:id="@+id/termName"
+                    android:id="@+id/termID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Term 1" />

@@ -25,9 +25,7 @@ public class CourseDetail extends AppCompatActivity {
 
 
     int termId;
-    String termName;
     int courseId;
-    String courseName;
     String name;
     String status;
     String ciName;
@@ -61,10 +59,10 @@ public class CourseDetail extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         note = getIntent().getStringExtra("note");
 
-        editTerm= findViewById(R.id.termName);
-        editTerm.setText(termId);
-        editCourse=findViewById(R.id.courseID);
-        editCourse.setText(courseId);
+//        editTerm= findViewById(R.id.termID);
+//        editTerm.setText(termId);
+//        editCourse=findViewById(R.id.courseID);
+//        editCourse.setText(courseId);
         editName = findViewById(R.id.courseName);
         editName.setText(name);
         editStatus=findViewById(R.id.courseStatus);
