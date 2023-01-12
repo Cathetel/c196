@@ -60,9 +60,9 @@ public class CourseDetail extends AppCompatActivity {
         note = getIntent().getStringExtra("note");
 
         editTerm= findViewById(R.id.termID);
-//        editTerm.setText(termId); TODO BUG FIX
+        editTerm.setText(Integer.toString(termId));
         editCourse=findViewById(R.id.courseID);
-//        editCourse.setText(courseId); TODO BUG FIX
+        editCourse.setText(Integer.toString(courseId));
         editName = findViewById(R.id.courseName);
         editName.setText(name);
         editStatus=findViewById(R.id.courseStatus);
