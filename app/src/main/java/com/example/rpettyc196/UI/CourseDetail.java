@@ -59,10 +59,10 @@ public class CourseDetail extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         note = getIntent().getStringExtra("note");
 
-//        editTerm= findViewById(R.id.termID);
-//        editTerm.setText(termId);
-//        editCourse=findViewById(R.id.courseID);
-//        editCourse.setText(courseId);
+        editTerm= findViewById(R.id.termID);
+//        editTerm.setText(termId); TODO BUG FIX
+        editCourse=findViewById(R.id.courseID);
+//        editCourse.setText(courseId); TODO BUG FIX
         editName = findViewById(R.id.courseName);
         editName.setText(name);
         editStatus=findViewById(R.id.courseStatus);
@@ -84,19 +84,6 @@ public class CourseDetail extends AppCompatActivity {
         List<Assessment> allAssessements = repository.getAllAssessments();
         assessmentAdapter.setAssessment(allAssessements);
 
-
-//        repository = new Repository(getApplication());
-//        RecyclerView recyclerView = findViewById(R.id.courseRecyclerView1);
-//        repository = new Repository(getApplication());
-//        final CourseAdapter courseAdapter = new CourseAdapter(this);
-//        recyclerView.setAdapter(courseAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        List<Course> filteredCourses = new ArrayList<>();
-//        for (Course c : repository.getAllCourses()) {
-//            if (c.getTermID() == termId) filteredCourses.add(c);
-//        }
-//
-//        courseAdapter.setCourse(filteredCourses);
 
         Button button = findViewById(R.id.saveCourse);
         button.setOnClickListener(new View.OnClickListener() {
