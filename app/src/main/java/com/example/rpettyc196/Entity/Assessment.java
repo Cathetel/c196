@@ -9,18 +9,26 @@ import java.time.LocalDateTime;
 public class Assessment {
     @PrimaryKey(autoGenerate = true)
     private int assessmentID;
+    private int courseID;
     private String assessmentName;
     private String start;
     private String end;
 
-    public Assessment(int assessmentID, String assessmentName, String start, String end) {
+    public Assessment(int assessmentID, int courseID, String assessmentName, String start, String end) {
         this.assessmentID = assessmentID;
+        this.courseID = courseID;
         this.assessmentName = assessmentName;
         this.start = start;
         this.end = end;
     }
 
+    public int getCourseID() {
+        return courseID;
+    }
 
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
+    }
 
     public int getAssessmentID() {
         return assessmentID;
@@ -58,6 +66,7 @@ public class Assessment {
     public String toString() {
         return "Assessment{" +
                 "assessmentID=" + assessmentID +
+                "courseID=" + courseID +
                 ", assessmentName='" + assessmentName + '\'' +
                 ", start=" + start +
                 ", end=" + end +
