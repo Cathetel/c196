@@ -40,27 +40,23 @@ public class AssessmentDetail extends AppCompatActivity {
         setContentView(R.layout.activity_assessment_detail);
 
 
-        assessmentId = getIntent().getIntExtra("assessmentID", -1);
-        assessmentName = getIntent().getStringExtra("assessmentName");
-        start = getIntent().getStringExtra("start");
-        end = getIntent().getStringExtra("end");
+//        assessmentId = getIntent().getIntExtra("assessmentID", -1);
+//        courseId = getIntent().getIntExtra("courseID", -1);
+//        assessmentName = getIntent().getStringExtra("assessmentName");
+//        start = getIntent().getStringExtra("start");
+//        end = getIntent().getStringExtra("end");
+//
+//            editAssessmentId= findViewById(R.id.assessmentID);
+//            editAssessmentId.setText(assessmentId);
+//            editCourseID=findViewById(R.id.courseID);
+//            editCourseID.setText(courseId);
+//            editAssessmentName=findViewById(R.id.assessmentName);
+//            editAssessmentName.setText(assessmentName);
+//            editAssessmentStart=findViewById(R.id.assessmentStart);
+//            editAssessmentStart.setText(start);
+//            editAssessmentEnd=findViewById(R.id.assessmentEnd);
+//            editAssessmentEnd.setText(end);
 
-            editAssessmentId= findViewById(R.id.assessmentID);
-            editAssessmentId.setText(assessmentId);
-//            editCourse=findViewById(R.id.courseID);
-//            editCourse.setText(Integer.toString(courseId));
-//            editName = findViewById(R.id.courseName);
-//            editName.setText(name);
-//            editStatus=findViewById(R.id.courseStatus);
-//            editStatus.setText(status);
-//            editCiName=findViewById(R.id.courseInstructor);
-//            editCiName.setText(ciName);
-//            editCiPhone=findViewById(R.id.coursePhone);
-//            editCiPhone.setText(ciPhone);
-//            editEmail=findViewById(R.id.courseEmail);
-//            editEmail.setText(email);
-//            editNote=findViewById(R.id.courseNote);
-//            editNote.setText(note);
 
 //            RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
 //            final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
@@ -94,7 +90,7 @@ public class AssessmentDetail extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(com.example.rpettyc196.UI.AssessmentDetail.this, CourseList.class);
-                    intent.putExtra("courseID", courseId);
+                    //intent.putExtra("courseID", courseId);
                     startActivity(intent);
                 }
             });
@@ -116,4 +112,4 @@ public class AssessmentDetail extends AppCompatActivity {
             assessmentAdapter.setAssessment(filteredAssessment);
         }
     }
-}
+//}

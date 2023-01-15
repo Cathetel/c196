@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void junkData() {
         Repository repo = new Repository(getApplication());
-        Term term = new Term(1, "TEST1", null, null);
+        Term term = new Term(2, "Roys Term 2", null, null);
         repo.insert(term);
-        Assessment assesment1=new Assessment(1,"Roys Test", null, null);
-        repo.insert(assesment1);
-        Course class1=new Course(1,3,"course1", null, null,"In Progress","Carolyn Sher-DeCusatis","555-555-5555","carolyn@wgu.edu","test note");
+        Assessment assessment1=new Assessment(1,3,"Roys Test", "1/1/22", "12/1/22");
+        repo.insert(assessment1);
+        Course class1=new Course(2,3,"course1", null, null,"In Progress","Carolyn Sher-DeCusatis","555-555-5555","carolyn@wgu.edu","test note");
         repo.insert(class1);
 
     }

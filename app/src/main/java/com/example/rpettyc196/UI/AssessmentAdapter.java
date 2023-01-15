@@ -6,16 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.rpettyc196.Entity.Assessment;
 import com.example.rpettyc196.R;
+
 import java.util.List;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
-    class AssessmentViewHolder extends RecyclerView.ViewHolder{
+    class AssessmentViewHolder extends RecyclerView.ViewHolder {
         private final TextView assessmentItemView;
-        private AssessmentViewHolder(View itemView){
+
+        private AssessmentViewHolder(View itemView) {
             super(itemView);
             assessmentItemView = itemView.findViewById(R.id.textAssessment);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -24,18 +28,23 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     int position = getAdapterPosition();
                     final Assessment current = mAssessment.get(position);
                     Intent intent = new Intent(context, AssessmentDetail.class);
-                    intent.putExtra("id", current.getAssessmentID());
-                    intent.putExtra("name", current.getAssessmentName());
+                    intent.putExtra("assessmentId", current.getAssessmentID());
+                    intent.putExtra("courseId", current.getCourseID());
+                    intent.putExtra("assessmentName", current.getAssessmentName());
+                    intent.putExtra("start", current.getStart());
+                    intent.putExtra("end", current.getEnd());
                     context.startActivity(intent);
 
                 }
             });
         }
     }
+
     private List<Assessment> mAssessment;
     private final Context context;
     private final LayoutInflater mInflater;
-    public AssessmentAdapter(Context context){
+
+    public AssessmentAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
     }
@@ -43,31 +52,32 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @NonNull
     @Override
     public AssessmentAdapter.AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.assessment_list_item,parent,false);
+        View itemView = mInflater.inflate(R.layout.assessment_list_item, parent, false);
         return new AssessmentViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentAdapter.AssessmentViewHolder holder, int position) {
-        if(mAssessment!=null){
+        if (mAssessment != null) {
             Assessment current = mAssessment.get(position);
             String name = current.getAssessmentName();
             holder.assessmentItemView.setText(name);
-        }
-        else{
+        } else {
             holder.assessmentItemView.setText("No Term Name");
         }
     }
-    public void setAssessment(List<Assessment> assessment){
+
+    public void setAssessment(List<Assessment> assessment) {
         mAssessment = assessment;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if(mAssessment != null) {
+        if (mAssessment != null) {
             return mAssessment.size();
+        } else {
+            return 0;
         }
-        else {return 0;}
     }
 }

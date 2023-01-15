@@ -41,6 +41,7 @@ public class CourseDetail extends AppCompatActivity {
     EditText editEmail;
     EditText editNote;
     Term term;
+    Course course;
     Term currentTerm;
     int numTerms;
     Repository repository;
@@ -76,29 +77,38 @@ public class CourseDetail extends AppCompatActivity {
         editNote=findViewById(R.id.courseNote);
         editNote.setText(note);
 
-        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
+        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView1);
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         repository = new Repository(getApplication());
         List<Assessment> allAssessements = repository.getAllAssessments();
+        for (Assessment a : repository.getAllAssessments()) {
+            if (a.getCourseID() == courseId) allAssessements.add(a);
+        }
         assessmentAdapter.setAssessment(allAssessements);
+
 
 
         Button button = findViewById(R.id.saveCourse);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editName = findViewById(R.id.termName);
+                editName = findViewById(R.id.courseName);
                 name = editName.getText().toString();
 
-                if (termId == -1) {
-                    // TODO set toast: "NEED TERM TO ASSOCIATE"
-                } else {
-                    term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
-                    repository.update(term);
+                if (courseId == -1) {
+                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22",editStatus.getText().toString(),editCiName.getText().toString(),editCiPhone.getText().toString(),editEmail.getText().toString(),editNote.getText().toString());
+                    repository.insert(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
-                    intent.putExtra("termID", termId);
+                    intent.putExtra("courseID", courseId);
+                    startActivity(intent);
+                   // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
+                } else {
+                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22",editStatus.getText().toString(),editCiName.getText().toString(),editCiPhone.getText().toString(),editEmail.getText().toString(),editNote.getText().toString());
+                    repository.update(course);
+                    Intent intent = new Intent(CourseDetail.this, CourseList.class);
+                    //intent.putExtra("courseID", courseId);
                     startActivity(intent);
                 }
             }
@@ -119,14 +129,15 @@ public class CourseDetail extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
-        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
-        final CourseAdapter courseAdapter = new CourseAdapter(this);
-        recyclerView.setAdapter(courseAdapter);
+        RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView1);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Course> filteredCourses = new ArrayList<>();
-        for (Course c : repository.getAllCourses()) {
-            if (c.getCourseID() == termId) filteredCourses.add(c);
+        repository = new Repository(getApplication());
+        List<Assessment> allAssessements = repository.getAllAssessments();
+        for (Assessment a : repository.getAllAssessments()) {
+            if (a.getCourseID() == courseId) allAssessements.add(a);
         }
-        courseAdapter.setCourse(filteredCourses);
+        assessmentAdapter.setAssessment(allAssessements);
     }
 }

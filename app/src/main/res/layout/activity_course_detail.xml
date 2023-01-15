@@ -182,7 +182,7 @@
         app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/assessmentRecyclerview"
+        android:id="@+id/assessmentRecyclerView1"
         android:layout_width="409dp"
         android:layout_height="249dp"
         app:layout_constraintRight_toRightOf="parent"
