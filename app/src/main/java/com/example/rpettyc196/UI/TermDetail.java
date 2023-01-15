@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +30,7 @@ public class TermDetail extends AppCompatActivity {
     int termId;
     Term term;
     Term currentTerm;
-    int numTerms;
+    int numCourses;
     Repository repository;
 
     @Override
@@ -77,8 +79,7 @@ public class TermDetail extends AppCompatActivity {
                     Intent intent = new Intent(TermDetail.this, TermList.class);
                     intent.putExtra("termID", termId);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
                     repository.update(term);
                     Intent intent = new Intent(TermDetail.this, TermList.class);
@@ -98,19 +99,32 @@ public class TermDetail extends AppCompatActivity {
         });
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.deleteterm, menu);
+        return true;
+    }
 
-//    @Override
-//    protected void onResume() {
-//
-//        super.onResume();
-//        RecyclerView recyclerView = findViewById(R.id.courseRecyclerview);
-//        final CourseAdapter courseAdapter = new CourseAdapter(this);
-//        recyclerView.setAdapter(courseAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        List<Course> filteredCourses = new ArrayList<>();
-//        for (Course c : repository.getAllCourses()) {
-//            if (c.getCourseID() == termId) filteredCourses.add(c);
-//        }
-//        courseAdapter.setCourse(filteredCourses);
-//    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.deleteterm:
+                for (Term term : repository.getAllTerms()) {
+                    if (term.getTermID() == termId) currentTerm = term;
+                }
+
+                numCourses = 0;
+                for (Course course : repository.getAllCourses()) {
+                    if (course.getTermID() == termId) ++numCourses;
+                }
+
+                if (numCourses == 0) {
+                    repository.delete(currentTerm);
+                    Toast.makeText(TermDetail.this, currentTerm.getTermName() + " was deleted", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(TermDetail.this, "Can't delete a term with courses. Please delete courses first.", Toast.LENGTH_LONG).show();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
