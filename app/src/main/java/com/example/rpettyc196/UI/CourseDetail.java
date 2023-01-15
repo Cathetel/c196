@@ -60,21 +60,21 @@ public class CourseDetail extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         note = getIntent().getStringExtra("note");
 
-        editTerm= findViewById(R.id.termID);
+        editTerm = findViewById(R.id.termID);
         editTerm.setText(Integer.toString(termId));
-        editCourse=findViewById(R.id.courseID);
+        editCourse = findViewById(R.id.courseID);
         editCourse.setText(Integer.toString(courseId));
         editName = findViewById(R.id.courseName);
         editName.setText(name);
-        editStatus=findViewById(R.id.courseStatus);
+        editStatus = findViewById(R.id.courseStatus);
         editStatus.setText(status);
-        editCiName=findViewById(R.id.courseInstructor);
+        editCiName = findViewById(R.id.courseInstructor);
         editCiName.setText(ciName);
-        editCiPhone=findViewById(R.id.coursePhone);
+        editCiPhone = findViewById(R.id.coursePhone);
         editCiPhone.setText(ciPhone);
-        editEmail=findViewById(R.id.courseEmail);
+        editEmail = findViewById(R.id.courseEmail);
         editEmail.setText(email);
-        editNote=findViewById(R.id.courseNote);
+        editNote = findViewById(R.id.courseNote);
         editNote.setText(note);
 
         RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView1);
@@ -89,7 +89,6 @@ public class CourseDetail extends AppCompatActivity {
         assessmentAdapter.setAssessment(allAssessements);
 
 
-
         Button button = findViewById(R.id.saveCourse);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,14 +97,14 @@ public class CourseDetail extends AppCompatActivity {
                 name = editName.getText().toString();
 
                 if (courseId == -1) {
-                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22",editStatus.getText().toString(),editCiName.getText().toString(),editCiPhone.getText().toString(),editEmail.getText().toString(),editNote.getText().toString());
+                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22", editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.insert(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
                     intent.putExtra("courseID", courseId);
                     startActivity(intent);
-                   // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
+                    // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
                 } else {
-                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22",editStatus.getText().toString(),editCiName.getText().toString(),editCiPhone.getText().toString(),editEmail.getText().toString(),editNote.getText().toString());
+                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22", editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.update(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
                     //intent.putExtra("courseID", courseId);
