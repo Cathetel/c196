@@ -32,6 +32,7 @@ public class AssessmentDetail extends AppCompatActivity {
     EditText editAssessmentName;
     EditText editAssessmentStart;
     EditText editAssessmentEnd;
+    Assessment assessment;
     Repository repository;
 
     @Override
@@ -40,49 +41,54 @@ public class AssessmentDetail extends AppCompatActivity {
         setContentView(R.layout.activity_assessment_detail);
 
 
-//        assessmentId = getIntent().getIntExtra("assessmentID", -1);
-//        courseId = getIntent().getIntExtra("courseID", -1);
-//        assessmentName = getIntent().getStringExtra("assessmentName");
-//        start = getIntent().getStringExtra("start");
-//        end = getIntent().getStringExtra("end");
-//
-//            editAssessmentId= findViewById(R.id.assessmentID);
-//            editAssessmentId.setText(assessmentId);
-//            editCourseID=findViewById(R.id.courseID);
-//            editCourseID.setText(courseId);
-//            editAssessmentName=findViewById(R.id.assessmentName);
-//            editAssessmentName.setText(assessmentName);
-//            editAssessmentStart=findViewById(R.id.assessmentStart);
-//            editAssessmentStart.setText(start);
-//            editAssessmentEnd=findViewById(R.id.assessmentEnd);
-//            editAssessmentEnd.setText(end);
+        assessmentId = getIntent().getIntExtra("assessmentId", -1);
+        courseId = getIntent().getIntExtra("courseId", -1);
+        assessmentName = getIntent().getStringExtra("assessmentName");
+        start = getIntent().getStringExtra("start");
+        end = getIntent().getStringExtra("end");
+
+            editAssessmentId= findViewById(R.id.assessmentID);
+            editAssessmentId.setText(String.valueOf(assessmentId));
+            editCourseID=findViewById(R.id.courseID);
+            editCourseID.setText(String.valueOf(courseId));
+            editAssessmentName=findViewById(R.id.assessmentName);
+            editAssessmentName.setText(assessmentName);
+            editAssessmentStart=findViewById(R.id.assessmentStart);
+            editAssessmentStart.setText(start);
+            editAssessmentEnd=findViewById(R.id.assessmentEnd);
+            editAssessmentEnd.setText(end);
 
 
-//            RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
-//            final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
-//            recyclerView.setAdapter(assessmentAdapter);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//            repository = new Repository(getApplication());
-//            List<Assessment> allAssessements = repository.getAllAssessments();
-//            assessmentAdapter.setAssessment(allAssessements);
+            RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerview);
+            final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+            recyclerView.setAdapter(assessmentAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            repository = new Repository(getApplication());
+            List<Assessment> allAssessements = repository.getAllAssessments();
+            assessmentAdapter.setAssessment(allAssessements);
 
 
             Button button = findViewById(R.id.saveAssessment);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    editName = findViewById(R.id.termName);
-//                    name = editName.getText().toString();
-//
-//                    if (termId == -1) {
-//                        // TODO set toast: "NEED TERM TO ASSOCIATE"
-//                    } else {
-//                        term = new Term(termId, editName.getText().toString(), "01/01/22", "12/31/22");
-//                        repository.update(term);
-//                        Intent intent = new Intent(com.example.rpettyc196.UI.AssessmentDetail.this, CourseList.class);
-//                        intent.putExtra("termID", termId);
-//                        startActivity(intent);
-//                    }
+                    editAssessmentName = findViewById(R.id.assessmentName);
+                    assessmentName = editAssessmentName.getText().toString();
+
+                    if (assessmentId == -1) {
+                        assessment = new Assessment(Integer.getInteger(editAssessmentId.getText().toString()), Integer.getInteger(editCourseID.getText().toString()), editAssessmentName.getText().toString(), "01/01/22", "12/31/22");
+                        repository.insert(assessment);
+                        Intent intent = new Intent(AssessmentDetail.this, CourseList.class);
+                        intent.putExtra("courseID", courseId);
+                        startActivity(intent);
+                        // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
+                    } else {
+                        assessment = new Assessment(Integer.getInteger(editAssessmentId.getText().toString()), Integer.getInteger(editCourseID.getText().toString()), editAssessmentName.getText().toString(), "01/01/22", "12/31/22");
+                        repository.update(assessment);
+                        Intent intent = new Intent(AssessmentDetail.this, CourseList.class);
+                        //intent.putExtra("courseID", courseId);
+                        startActivity(intent);
+                    }
                 }
             });
             FloatingActionButton fab = findViewById(R.id.assessmentActionButton);
