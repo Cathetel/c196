@@ -138,14 +138,14 @@ public class CourseDetail extends AppCompatActivity {
                 name = editName.getText().toString();
 
                 if (courseId == -1) {
-                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22", editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
+                    course = new Course(0, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), editStart.getText().toString(), editEnd.getText().toString(), editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.insert(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
                     intent.putExtra("courseID", courseId);
                     startActivity(intent);
                     // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
                 } else {
-                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), "01/01/22", "12/31/22", editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
+                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), editStart.getText().toString(), editEnd.getText().toString(), editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.update(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
                     //intent.putExtra("courseID", courseId);
