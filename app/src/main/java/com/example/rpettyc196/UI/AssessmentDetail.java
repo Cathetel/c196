@@ -91,15 +91,15 @@ public class AssessmentDetail extends AppCompatActivity {
                     }
                 }
             });
-            FloatingActionButton fab = findViewById(R.id.assessmentActionButton);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(com.example.rpettyc196.UI.AssessmentDetail.this, CourseList.class);
-                    //intent.putExtra("courseID", courseId);
-                    startActivity(intent);
-                }
-            });
+//            FloatingActionButton fab = findViewById(R.id.assessmentActionButton);
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(com.example.rpettyc196.UI.AssessmentDetail.this, CourseList.class);
+//                    //intent.putExtra("courseID", courseId);
+//                    startActivity(intent);
+//                }
+//            });
 
         }
 

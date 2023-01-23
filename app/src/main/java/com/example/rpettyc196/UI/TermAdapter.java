@@ -32,8 +32,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     Intent intent = new Intent(context, TermDetail.class);
                     intent.putExtra("termID", current.getTermID());
                     intent.putExtra("termName", current.getTermName());
-                    intent.putExtra("startDate", current.getStart());
-                    intent.putExtra("endDate", current.getEnd());
+                    intent.putExtra("start", current.getStart());
+                    intent.putExtra("end", current.getEnd());
                     context.startActivity(intent);
 
                 }

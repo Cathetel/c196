@@ -12,7 +12,7 @@ import com.example.rpettyc196.Entity.Assessment;
 import com.example.rpettyc196.Entity.Course;
 import com.example.rpettyc196.Entity.Term;
 
-@Database(entities = {Assessment.class, Course.class, Term.class}, version = 9, exportSchema = false)
+@Database(entities = {Assessment.class, Course.class, Term.class}, version = 11, exportSchema = false)
 public abstract class DatabaseBuilder extends RoomDatabase{
 
     public abstract AssessmentDAO assessmentDAO();

@@ -42,6 +42,8 @@ public class CourseDetail extends AppCompatActivity {
     String name;
     String status;
     String ciName;
+    String start;
+    String end;
     String ciPhone;
     String email;
     String note;
@@ -75,6 +77,8 @@ public class CourseDetail extends AppCompatActivity {
         termId = getIntent().getIntExtra("termID", -1);
         courseId = getIntent().getIntExtra("courseID", -1);
         name = getIntent().getStringExtra("courseName");
+        start = getIntent().getStringExtra("start");
+        end = getIntent().getStringExtra("end");
         status = getIntent().getStringExtra("status");
         ciName = getIntent().getStringExtra("ciName");
         ciPhone = getIntent().getStringExtra("ciPhone");
@@ -98,9 +102,9 @@ public class CourseDetail extends AppCompatActivity {
         editNote = findViewById(R.id.courseNote);
         editNote.setText(note);
         editStart = findViewById(R.id.startdate);
-        editStart.setText(sdf.format(new Date()));
+        editStart.setText(start);
         editEnd = findViewById(R.id.enddate);
-        editStart.setText(sdf.format(new Date()));
+        editEnd.setText(end);
 
         RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView1);
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
@@ -137,6 +141,7 @@ public class CourseDetail extends AppCompatActivity {
                 editName = findViewById(R.id.courseName);
                 name = editName.getText().toString();
 
+
                 if (courseId == -1) {
                     course = new Course(0, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), editStart.getText().toString(), editEnd.getText().toString(), editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.insert(course);
@@ -153,15 +158,15 @@ public class CourseDetail extends AppCompatActivity {
                 }
             }
         });
-        FloatingActionButton fab = findViewById(R.id.termActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CourseDetail.this, CourseList.class);
-                intent.putExtra("termID", termId);
-                startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.termActionButton);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(CourseDetail.this, CourseList.class);
+//                intent.putExtra("courseID", courseId);
+//                startActivity(intent);
+//            }
+//        });
         editStart.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -299,7 +304,24 @@ public class CourseDetail extends AppCompatActivity {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
                 return true;
             case R.id.notifyend:
+                dateFromScreen = editEnd.getText().toString();
+                myFormat = "MM/dd/yy"; //In which you need put here
+                sdf = new SimpleDateFormat(myFormat, Locale.US);
+                myDate = null;
+                try {
+                    myDate = sdf.parse(dateFromScreen);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                trigger = myDate.getTime();
+                intent = new Intent(CourseDetail.this, MyReceiver.class);
+                intent.putExtra("key", dateFromScreen + " should trigger");
+                sender = PendingIntent.getBroadcast(CourseDetail.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
+                alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
                 return true;
+//            case R.id.notifyend:
+//                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RPETTYC196">
+        <receiver android:name=".UI.MyReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
         <activity
             android:name=".UI.AssessmentDetail"
             android:parentActivityName=".UI.AssessmentList"
