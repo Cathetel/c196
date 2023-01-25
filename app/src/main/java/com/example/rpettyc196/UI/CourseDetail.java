@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -111,11 +112,11 @@ public class CourseDetail extends AppCompatActivity {
         recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         repository = new Repository(getApplication());
-        List<Assessment> allAssessements = repository.getAllAssessments();
+        List<Assessment> filteredAssessements = new ArrayList<>();
         for (Assessment a : repository.getAllAssessments()) {
-            if (a.getCourseID() == courseId) allAssessements.add(a);
+            if (a.getCourseID() == courseId) filteredAssessements.add(a);
         }
-        assessmentAdapter.setAssessment(allAssessements);
+        assessmentAdapter.setAssessment(filteredAssessements);
 
 
         Spinner spinner = findViewById(R.id.spinner);
@@ -124,12 +125,12 @@ public class CourseDetail extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                editNote.setText(productArrayAdapter.getItem(i).toString());
+               // editNote.setText(productArrayAdapter.getItem(i).toString());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                editNote.setText("Nothing selected");
+                //editNote.setText("Nothing selected");
             }
         });
 
@@ -140,17 +141,19 @@ public class CourseDetail extends AppCompatActivity {
             public void onClick(View view) {
                 editName = findViewById(R.id.courseName);
                 name = editName.getText().toString();
-
+                String startdate= editStart.getText().toString();
+                String enddate= editEnd.getText().toString();
+                String cid = editCourse.getText().toString();
 
                 if (courseId == -1) {
-                    course = new Course(0, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), editStart.getText().toString(), editEnd.getText().toString(), editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
+                    course = new Course(0, Integer.parseInt(editCourse.getText().toString()), editName.getText().toString(), startdate, enddate, editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.insert(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
                     intent.putExtra("courseID", courseId);
                     startActivity(intent);
                     // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
                 } else {
-                    course = new Course(termId, Integer.getInteger(editCourse.getText().toString()), editName.getText().toString(), editStart.getText().toString(), editEnd.getText().toString(), editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
+                    course = new Course(termId, Integer.parseInt(editCourse.getText().toString()), editName.getText().toString(), startdate, enddate, editStatus.getText().toString(), editCiName.getText().toString(), editCiPhone.getText().toString(), editEmail.getText().toString(), editNote.getText().toString());
                     repository.update(course);
                     Intent intent = new Intent(CourseDetail.this, CourseList.class);
                     //intent.putExtra("courseID", courseId);

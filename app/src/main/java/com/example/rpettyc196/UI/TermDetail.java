@@ -63,11 +63,12 @@ public class TermDetail extends AppCompatActivity {
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         repository = new Repository(getApplication());
-        List<Course> allCourses = repository.getAllCourses();
+        //List<Course> allCourses = repository.getAllCourses();
+        List<Course> filteredCourses = new ArrayList<>();
         for (Course c : repository.getAllCourses()) {
-            if (c.getTermID() == termId) allCourses.add(c);
+            if (c.getTermID() == termId) filteredCourses.add(c);
         }
-        courseAdapter.setCourse(allCourses);
+        courseAdapter.setCourse(filteredCourses);
 
 
 

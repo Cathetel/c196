@@ -76,16 +76,16 @@ public class AssessmentDetail extends AppCompatActivity {
                     assessmentName = editAssessmentName.getText().toString();
 
                     if (assessmentId == -1) {
-                        assessment = new Assessment(Integer.getInteger(editAssessmentId.getText().toString()), Integer.getInteger(editCourseID.getText().toString()), editAssessmentName.getText().toString(), "01/01/22", "12/31/22");
+                        assessment = new Assessment(Integer.parseInt(editAssessmentId.getText().toString()), Integer.parseInt(editCourseID.getText().toString()), editAssessmentName.getText().toString(), "01/01/22", "12/31/22");
                         repository.insert(assessment);
-                        Intent intent = new Intent(AssessmentDetail.this, CourseList.class);
+                        Intent intent = new Intent(AssessmentDetail.this, AssessmentList.class);
                         intent.putExtra("courseID", courseId);
                         startActivity(intent);
                         // Toast.makeText(CourseDetail.this,"ERROR",Toast.LENGTH_LONG).show();
                     } else {
-                        assessment = new Assessment(Integer.getInteger(editAssessmentId.getText().toString()), Integer.getInteger(editCourseID.getText().toString()), editAssessmentName.getText().toString(), "01/01/22", "12/31/22");
+                        assessment = new Assessment(Integer.parseInt(editAssessmentId.getText().toString()), Integer.parseInt(editCourseID.getText().toString()), editAssessmentName.getText().toString(), "01/01/22", "12/31/22");
                         repository.update(assessment);
-                        Intent intent = new Intent(AssessmentDetail.this, CourseList.class);
+                        Intent intent = new Intent(AssessmentDetail.this, AssessmentList.class);
                         //intent.putExtra("courseID", courseId);
                         startActivity(intent);
                     }
