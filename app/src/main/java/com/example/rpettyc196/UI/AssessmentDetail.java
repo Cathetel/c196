@@ -153,8 +153,8 @@ public class AssessmentDetail extends AppCompatActivity {
 
                 return true;
 
-            case R.id.notifyend:
-                String dateFromScreen = editAssessmentEnd.getText().toString();
+            case R.id.notifystart:
+                String dateFromScreen = editAssessmentStart.getText().toString();
                 String myFormat = "MM/dd/yy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 Date myDate = null;
@@ -171,8 +171,26 @@ public class AssessmentDetail extends AppCompatActivity {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
                 return true;
 
+            case R.id.notifyend:
+                dateFromScreen = editAssessmentEnd.getText().toString();
+                myFormat = "MM/dd/yy";
+                sdf = new SimpleDateFormat(myFormat, Locale.US);
+                myDate = null;
+                try {
+                    myDate = sdf.parse(dateFromScreen);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                trigger = myDate.getTime();
+                intent = new Intent(AssessmentDetail.this, MyReceiver.class);
+                intent.putExtra("key", dateFromScreen + " should trigger");
+                sender = PendingIntent.getBroadcast(AssessmentDetail.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
+                alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
+
     }
 }
-//}

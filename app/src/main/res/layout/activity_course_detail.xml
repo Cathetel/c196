@@ -83,6 +83,7 @@
                 android:id="@+id/startdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="MM/DD/YY"
                 android:inputType="none" />
         </LinearLayout>
             <LinearLayout
@@ -97,6 +98,7 @@
                     android:id="@+id/enddate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="MM/DD/YY"
                     android:inputType="none" />
             </LinearLayout>
             <LinearLayout
@@ -113,7 +115,7 @@
                     android:id="@+id/courseStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Course 1" />
+                    android:hint="In Progress" />
             </LinearLayout>
 
             <LinearLayout
@@ -130,7 +132,7 @@
                     android:id="@+id/courseInstructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Course 1" />
+                    android:hint="First Name Last Name" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,7 +166,7 @@
                     android:id="@+id/courseEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Course 1" />
+                    android:hint="rpetty1@wgu.edu" />
             </LinearLayout>
 
             <LinearLayout
@@ -181,7 +183,7 @@
                     android:id="@+id/courseNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Course 1" />
+                    android:hint="Insert Note" />
             </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
