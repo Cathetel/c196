@@ -2,13 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/deleteterm"
+        android:title="Delete Term" />
+    <item
         android:id="@+id/share"
-        android:title="Share"/>
+        android:title="Share" />
     <item
         android:id="@+id/notifystart"
-        android:title="Notify Start"/>
+        android:title="Notify Start" />
     <item
         android:id="@+id/notifyend"
-        android:title="Notify End"/>
+        android:title="Notify End" />
 
 </menu>

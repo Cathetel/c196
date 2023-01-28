@@ -23,5 +23,5 @@ public interface CourseDAO {
 
     @Query("SELECT * FROM courses ORDER BY courseID ASC")
 
-    public List<Course> getAllCourses();
+    List<Course> getAllCourses();
 }

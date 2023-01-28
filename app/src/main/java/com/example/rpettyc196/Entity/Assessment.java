@@ -13,14 +13,17 @@ public class Assessment {
     private String assessmentName;
     private String start;
     private String end;
+    private String examType;
 
-    public Assessment(int assessmentID, int courseID, String assessmentName, String start, String end) {
+    public Assessment(int assessmentID, int courseID, String assessmentName, String start, String end, String examType) {
         this.assessmentID = assessmentID;
         this.courseID = courseID;
         this.assessmentName = assessmentName;
         this.start = start;
         this.end = end;
+        this.examType = examType;
     }
+
 
     public int getCourseID() {
         return courseID;
@@ -62,6 +65,14 @@ public class Assessment {
         this.end = end;
     }
 
+    public String getExamType() {
+        return examType;
+    }
+
+    public void setExamType(String examType) {
+        this.examType = examType;
+    }
+
     @Override
     public String toString() {
         return "Assessment{" +
@@ -70,6 +81,7 @@ public class Assessment {
                 ", assessmentName='" + assessmentName + '\'' +
                 ", start=" + start +
                 ", end=" + end +
+                ", examType=" + examType +
                 '}';
     }
 }

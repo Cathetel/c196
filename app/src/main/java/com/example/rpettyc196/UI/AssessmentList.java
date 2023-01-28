@@ -29,9 +29,9 @@ public class AssessmentList extends AppCompatActivity {
             recyclerView.setAdapter(assessmentAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             repository = new Repository(getApplication());
-            List<Assessment> filteredAssessments = repository.getAllAssessments();
+            List<Assessment> allAssessments = repository.getAllAssessments();
             FloatingActionButton fab = findViewById(R.id.assessmentListFab);
-            assessmentAdapter.setAssessment(filteredAssessments);
+            assessmentAdapter.setAssessment(allAssessments);
 
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -46,12 +46,12 @@ public class AssessmentList extends AppCompatActivity {
         protected void onResume() {
 
             super.onResume();
-            List<Assessment> filteredAssessments = repository.getAllAssessments();
+            List<Assessment> allAssessments = repository.getAllAssessments();
             RecyclerView recyclerView = findViewById(R.id.assessmentRecyclerView);
             final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
             recyclerView.setAdapter(assessmentAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            assessmentAdapter.setAssessment(filteredAssessments);
+            assessmentAdapter.setAssessment(allAssessments);
 
             Toast.makeText(AssessmentList.this,"refresh list",Toast.LENGTH_LONG).show();
         }
