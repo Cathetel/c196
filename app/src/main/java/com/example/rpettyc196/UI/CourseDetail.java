@@ -326,12 +326,12 @@ public class CourseDetail extends AppCompatActivity {
                 }
 
                 numAssessments = 0;
-                for (Course course : repository.getAllCourses()) {
-                    if (course.getTermID() == termId) ++numAssessments;
+                for (Assessment assessment  : repository.getAllAssessments()) {
+                    if (assessment.getCourseID() == courseId) ++numAssessments;
                 }
 
                 if (numAssessments == 0) {
-                    repository.delete(currentTerm);
+                    repository.delete(currentCourse);
                     Toast.makeText(CourseDetail.this, currentCourse.getCourseName() + " was deleted", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(CourseDetail.this, "Can't delete a course with assessments. Please delete assessment first.", Toast.LENGTH_LONG).show();
